@@ -95,7 +95,7 @@ int Tree::parent(int i) {
 int Tree::left(int i) {
     if(!contains(i)) throw std::runtime_error("There is not int suct that!!!");
     Node *result = byInt(i);
-    if(result->getLeft() != NULL) return result->getData();
+    if(result->getLeft() != NULL) return result->getLeft()->getData();
     else {
         throw std::runtime_error("There is not int suct that!!!");
     }
@@ -104,7 +104,7 @@ int Tree::left(int i) {
 int Tree::right(int i) {
     if(!contains(i)) throw std::runtime_error("There is not int suct that!!!");
     Node *result = byInt(i);
-    if(result->getRight() != NULL) return result->getData();
+    if(result->getRight() != NULL) return result->getRight()->getData();
     else {
         throw std::runtime_error("There is not int suct that!!!");
     }
