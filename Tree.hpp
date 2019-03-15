@@ -44,6 +44,7 @@ class Tree {
     public:
     Tree()  {
         capacity=0;
+        r = NULL;
     }
 
     Tree& insert(int i);
@@ -54,8 +55,10 @@ class Tree {
     int parent(int i);
     int left(int i);
     int right(int i);
-    Node* byInt(int i);
     void print();
+
+    private:
+    Node* byInt(int i);
 
 };
 }

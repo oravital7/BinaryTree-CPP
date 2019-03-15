@@ -4,13 +4,13 @@ using namespace ariel;
 
 Tree& Tree::insert(int i)
 {
-    if (contains(i))
-        throw std::runtime_error("Duplicate number!");
-
     if (r == NULL)
     {
-        r = new Node(i);
+        r = new Node(i);        
     }
+
+    else if (contains(i))
+        throw std::runtime_error("Duplicate number!");
 
     else
     {
@@ -59,6 +59,7 @@ int Tree::size(){return capacity;}
 bool Tree::contains(int i)
 {
     Node *result = byInt(i);
+
     if(result == NULL) return false;
     return true;
 }
