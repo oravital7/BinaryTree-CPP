@@ -1,7 +1,5 @@
 #include <iostream>
 
-namespace ariel {
-
 class Node {
     private:
     int data;
@@ -35,6 +33,7 @@ class Node {
 
 };
 
+namespace ariel {
 
 class Tree {
     private:
@@ -47,7 +46,7 @@ class Tree {
         capacity=0;
     }
 
-    void insert(int i);
+    Tree& insert(int i);
     void remove(int i);
     int size();
     bool contains(int i);
@@ -55,6 +54,7 @@ class Tree {
     int parent(int i);
     int left(int i);
     int right(int i);
+    Node* byInt(int i);
     void print();
 
 };

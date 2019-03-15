@@ -2,7 +2,7 @@
 
 using namespace ariel;
 
-void Tree::insert(int i)
+Tree& Tree::insert(int i)
 {
     if (contains(i))
         throw std::runtime_error("Duplicate number!");
@@ -46,21 +46,72 @@ void Tree::insert(int i)
         }
     }
     capacity++;
+    return *this;
 }
 
 void Tree::remove(int i)
 {
+    
 }
 
-int Tree::size()
-{
-    return capacity;
-}
+int Tree::size(){return capacity;}
+
 bool Tree::contains(int i)
 {
+    Node *result = byInt(i);
+    if(result == NULL) return false;
+    return true;
+}
+int Tree::root() {return r->getData();}
+
+int Tree::parent(int i) {
+    if(r==NULL) throw std::runtime_error("empty tree");
+    if(r->getData()== i) throw std::runtime_error("There is not parent for root!");
+    if(!contains(i)) throw std::runtime_error("There is not i such that!!!");
+
+    Node *current = r, *parent = r;
+    int data,result;
+    bool ok = false;
+    while(current != NULL) {
+        data = current->getData();
+
+        if(i > data) {
+            parent = current;
+            current = current->getRight();
+        }
+        else if(i < data) {
+            parent = current;
+            current = current->getLeft();
+        }
+        else {
+            result = parent->getData();
+            break;
+        }
+    }
+    return result;
+}
+
+int Tree::left(int i) {
+    if(!contains(i)) throw std::runtime_error("There is not int suct that!!!");
+    Node *result = byInt(i);
+    if(result->getLeft() != NULL) return result->getData();
+    else {
+        throw std::runtime_error("There is not int suct that!!!");
+    }
+}
+
+int Tree::right(int i) {
+    if(!contains(i)) throw std::runtime_error("There is not int suct that!!!");
+    Node *result = byInt(i);
+    if(result->getRight() != NULL) return result->getData();
+    else {
+        throw std::runtime_error("There is not int suct that!!!");
+    }
+}
+
+Node* Tree::byInt(int i) {
     Node *current = r;
-    bool result = false;
-    while (!result && current != NULL)
+    while (current != NULL)
     {
         if (i > current->getData())
         {
@@ -72,13 +123,10 @@ bool Tree::contains(int i)
         }
         else
         {
-            result = true;
+            return current;
         }
     }
-    return result;
+    return NULL;
 }
-int Tree::root() {}
-int Tree::parent(int i) {}
-int Tree::left(int i) {}
-int Tree::right(int i) {}
+
 void Tree::print() {}
