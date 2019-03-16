@@ -4,13 +4,15 @@ using namespace ariel;
 
 Tree &Tree::insert(int i)
 {
-    if (r == NULL)
-    {
-        r = new Node(i);
-    }
-
-    else if (contains(i))
+    if (contains(i))
         throw std::runtime_error("Duplicate number!");
+
+
+    Node *node = new Node(i);
+
+    if (r == NULL){
+        r = node;
+    }
 
     else
     {
@@ -27,7 +29,7 @@ Tree &Tree::insert(int i)
                 }
                 else
                 {
-                    current->setRight(new Node(i));
+                    current->setRight(node);
                     flag = false;
                 }
             }
@@ -39,7 +41,7 @@ Tree &Tree::insert(int i)
                 }
                 else
                 {
-                    current->setLeft(new Node(i));
+                    current->setLeft(node);
                     flag = false;
                 }
             }
