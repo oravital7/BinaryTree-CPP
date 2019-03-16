@@ -51,6 +51,10 @@ class Tree {
         r = NULL;
     }
 
+    ~Tree() {
+        destroyTree(r);
+    }
+
     Tree& insert(int i);
     void remove(int i);
     int size();
@@ -62,11 +66,11 @@ class Tree {
     void print();
     void print(Node *root);
 
-
     private:
     Node* byInt(int i);
     Node* maxNode(Node *root);
     void setVertex(Node *node,Node *set, bool right);
+    void destroyTree(Node *root);
 
 };
 }

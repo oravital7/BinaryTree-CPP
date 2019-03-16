@@ -249,3 +249,11 @@ void Tree::setVertex(Node *node, Node *set, bool right)
         node->setLeft(set);
     }
 }
+
+void Tree::destroyTree(Node *root) {
+    if(root != NULL) {
+        destroyTree(root->getLeft());
+        destroyTree(root->getRight());
+        delete root;
+    }
+}
