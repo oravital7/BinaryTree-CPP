@@ -31,6 +31,10 @@ class Node {
         left = node;
     }
 
+    void setData(int i) {
+        data = i;
+    }
+
 };
 
 namespace ariel {
@@ -56,9 +60,13 @@ class Tree {
     int left(int i);
     int right(int i);
     void print();
+    void print(Node *root);
+
 
     private:
     Node* byInt(int i);
+    Node* maxNode(Node *root);
+    void setVertex(Node *node,Node *set, bool right);
 
 };
 }
