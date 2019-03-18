@@ -2,19 +2,20 @@
 
 using namespace ariel;
 
+// Insert a new data and finally increase capacity by 1
 Tree &Tree::insert(int i)
 {
-    if (contains(i))
+    if (contains(i)) // Prevent duplicates data
         throw std::runtime_error("Duplicate number!");
 
 
     Node *node = new Node(i);
 
-    if (r == NULL){
+    if (r == NULL){ // if the root is null so it's now the new root
         r = node;
     }
 
-    else
+    else // else, insert in the right place
     {
         Node *current = r;
         bool flag = true;
@@ -51,63 +52,64 @@ Tree &Tree::insert(int i)
     return *this;
 }
 
+// Remove element by data
 void Tree::remove(int i)
 {
     if (!contains(i) || r == NULL)
         throw std::runtime_error("There is not i such that!!!");
 
 
-    if (r->getData() == i)
+    if (r->getData() == i) // Case 1, root contain the data.
     {
-        if(r->getRight()==NULL && r->getLeft()== NULL) {
+        if(r->getRight()==NULL && r->getLeft()== NULL) { // No children
             delete r;
             r=NULL;
         }
-        else if(r->getRight()!=NULL && r->getLeft()== NULL) {
+        else if(r->getRight()!=NULL && r->getLeft()== NULL) { // Right child
             Node *temp = r->getRight();
             delete r;
             r = temp;
         }
-        else if(r->getRight()==NULL && r->getLeft()!= NULL) {
+        else if(r->getRight()==NULL && r->getLeft()!= NULL) { // Left child
             Node *temp = r->getLeft();
             delete r;
             r = temp;
         }
-        else {
-            Node *max = maxNode(r->getLeft());
+        else { // Root has 2 children
+            Node *max = maxNode(r->getLeft()); // Search on left tree max data value
             int maxData = max->getData();
-            remove(maxData);
-            r->setData(maxData);
-            capacity++;
+            remove(maxData); // Remove the max data that we found
+            r->setData(maxData); // Set root to be the max data
+            capacity++; // Just because we remove "twice"
         }
     }
 
-    else
+    else // Case 2, it's a node not a root
     {
         Node *target = byInt(i);
         Node *par = byInt(parent(i));
         bool right;
-        if (par->getRight()->getData() == i)
+        if (par->getRight()->getData() == i) // Detrmine parent of data is on the right or left side child
             right = true;
         else
             right = false;
 
-        if (target->getRight() == NULL && target->getLeft() == NULL)
+        if (target->getRight() == NULL && target->getLeft() == NULL) // No children
         {
-            setVertex(par, NULL, right);
+            setVertex(par, NULL, right); // Parent point to null
             delete target;
         }
-        else if (target->getRight() == NULL && target->getLeft() != NULL)
+        else if (target->getRight() == NULL && target->getLeft() != NULL) // Left child
         {
             setVertex(par, target->getLeft(), right);
             delete target;
         }
-        else if (target->getRight() != NULL && target->getLeft() == NULL)
+        else if (target->getRight() != NULL && target->getLeft() == NULL) // Righht child
         {
             setVertex(par, target->getRight(), right);
             delete target;
         }
-        else
+        else // Parent has 2 children
         {
             Node *max = maxNode(target->getLeft());
             int maxData = max->getData();
@@ -119,9 +121,10 @@ void Tree::remove(int i)
 
     capacity--;
 }
-
+// Return size of the tree (number of nodes - data)
 int Tree::size() { return capacity; }
 
+// Check if data is in the tree
 bool Tree::contains(int i)
 {
     Node *result = byInt(i);
@@ -131,8 +134,13 @@ bool Tree::contains(int i)
 
     return true;
 }
-int Tree::root() { return r->getData(); }
+// Return root data if exsist
+int Tree::root() { 
+    if(r != NULL) return r->getData(); 
 
+    throw std::runtime_error("There is not root!");
+}
+// Return parent of data
 int Tree::parent(int i)
 {
     if (r == NULL)
@@ -167,7 +175,7 @@ int Tree::parent(int i)
     }
     return result;
 }
-
+// Return left child
 int Tree::left(int i)
 {
     if (!contains(i))
@@ -180,7 +188,7 @@ int Tree::left(int i)
         throw std::runtime_error("There is not int suct that!!!");
     }
 }
-
+// Return right child
 int Tree::right(int i)
 {
     if (!contains(i))
@@ -193,7 +201,7 @@ int Tree::right(int i)
         throw std::runtime_error("There is not int suct that!!!");
     }
 }
-
+// return the node Class by data
 Node *Tree::byInt(int i)
 {
     Node *current = r;
@@ -214,7 +222,7 @@ Node *Tree::byInt(int i)
     }
     return NULL;
 }
-
+// Print PreOrder tree contains
 void Tree::print()
 {
     print(r);
@@ -228,7 +236,7 @@ void Tree::print(Node *root)
         print(root->getRight());
     }
 }
-
+// Search for the max data from the target node
 Node* Tree::maxNode(Node *root)
 {
     while (root->getRight() != NULL)
@@ -237,7 +245,7 @@ Node* Tree::maxNode(Node *root)
     }
     return root;
 }
-
+// Set node to point to other node or NULL
 void Tree::setVertex(Node *node, Node *set, bool right)
 {
     if (right)
@@ -249,7 +257,7 @@ void Tree::setVertex(Node *node, Node *set, bool right)
         node->setLeft(set);
     }
 }
-
+// Destroy the tree just for destructor and prevent memory leaks
 void Tree::destroyTree(Node *root) {
     if(root != NULL) {
         destroyTree(root->getLeft());
