@@ -58,7 +58,13 @@ int main() {
   .CHECK_EQUAL(myTree.left(myTree.root()),2)
   .CHECK_EQUAL(myTree.right(myTree.root()),8)
   .CHECK_THROWS(myTree.insert(8))
+  .CHECK_EQUAL(myTree.contains(2),true)
   .CHECK_THROWS(myTree.insert(2))
+  .CHECK_OK(myTree.remove(2))
+  .CHECK_EQUAL(myTree.contains(2),false)
+  .CHECK_OK(myTree.insert(2))
+  .CHECK_EQUAL(myTree.contains(2),true)
+
   .print();
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
