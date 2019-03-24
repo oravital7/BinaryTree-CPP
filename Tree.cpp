@@ -89,7 +89,7 @@ void Tree::remove(int i)
         Node *target = byInt(i);
         Node *par = byInt(parent(i));
         bool right;
-        if (par->getRight()->getData() == i) // Detrmine parent of data is on the right or left side child
+         if (par->getRight() != NULL && par->getRight()->getData() == i) // Detrmine parent of data is on the right or left side child
             right = true;
         else
             right = false;
