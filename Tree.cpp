@@ -3,7 +3,7 @@
 using namespace ariel;
 
 // Insert a new data and finally increase capacity by 1
-Tree &Tree::insert(int i)
+Tree& Tree::insert(int i)
 {
     if (contains(i)) // Prevent duplicates data
         throw std::runtime_error("Duplicate number!");
@@ -245,7 +245,7 @@ Node* Tree::maxNode(Node *root)
     }
     return root;
 }
-// Set node to point to other node or NULL
+// Set node point to other node or NULL
 void Tree::setVertex(Node *node, Node *set, bool right)
 {
     if (right)
